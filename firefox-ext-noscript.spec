@@ -3,8 +3,8 @@
 
 Summary: Firefox extension that protects against XSS and Clickjacking attacks
 Name: firefox-ext-noscript
-Version: 2.0.4
-Release: %mkrel 2
+Version: 2.0.7
+Release: %mkrel 1
 License: MPL
 Group:	Networking/WWW
 URL: https://addons.mozilla.org/en-US/firefox/addon/722/
