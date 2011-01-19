@@ -1,10 +1,9 @@
-%define _mozillaextpath %{firefox_mozillapath}/extensions
 %define debug_package %{nil}
 
 Summary: Firefox extension that protects against XSS and Clickjacking attacks
 Name: firefox-ext-noscript
 Version: 2.0.9.3
-Release: %mkrel 1
+Release: %mkrel 2
 License: MPL
 Group:	Networking/WWW
 URL: https://addons.mozilla.org/en-US/firefox/addon/722/
@@ -12,6 +11,7 @@ Source: http://releases.mozilla.org/pub/mozilla.org/addons/722/noscript-%{versio
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 Requires: firefox = %{firefox_epoch}:%{firefox_version}
 BuildRequires: firefox-devel
+Buildarch: noarch
 
 %description
 The best security you can get in a web browser!
@@ -37,7 +37,7 @@ Experts do agree: Firefox is really safer with NoScript ;-)
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}%{_mozillaextpath}
+mkdir -p %{buildroot}%{firefox_extdir}
 
 hash="$(sed -n '/.*em:id="\(.*\)"/{s//\1/p;q}' install.rdf)"
 if [ -z "$hash" ]; then
@@ -47,16 +47,15 @@ if [ -z "$hash" ]; then
     echo "Failed to find plugin hash."
     exit 1
 fi
-extdir="%{_mozillaextpath}/$hash"
+extdir="%{firefox_extdir}/"
 mkdir -p "%{buildroot}$extdir"
-cp -af * "%{buildroot}$extdir/"
+cp -af %SOURCE0 "%{buildroot}$extdir/$hash.xpi"
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(0644,root,root,0755)
-%dir %firefox_mozillapath
-%{_mozillaextpath}
+%{firefox_extdir}
 
 
