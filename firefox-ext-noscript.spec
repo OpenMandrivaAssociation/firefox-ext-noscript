@@ -1,15 +1,13 @@
-%define debug_package %{nil}
-
 Summary: Firefox extension that protects against XSS and Clickjacking attacks
 Name: firefox-ext-noscript
 Version: 2.0.9.6
-Release: %mkrel 1
+Release: %mkrel 2
 License: MPL
 Group:	Networking/WWW
 URL: https://addons.mozilla.org/en-US/firefox/addon/722/
 Source: http://releases.mozilla.org/pub/mozilla.org/addons/722/noscript-%{version}-fx+sm+fn.xpi
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
-Requires: firefox = %{firefox_epoch}:%{firefox_version}
+Requires: firefox >= %{firefox_epoch}:%{firefox_version}
 BuildRequires: firefox-devel
 Buildarch: noarch
 
@@ -32,8 +30,6 @@ Experts do agree: Firefox is really safer with NoScript ;-)
 
 %prep
 %setup -q -c -n %{name}-%{version}
-
-%build
 
 %install
 rm -rf %{buildroot}
